@@ -1,0 +1,61 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+class functions
+{
+private:
+	double x, y, z, arr_a[11], arr_b[11], arr_x[11];
+
+public:
+	functions(int N)
+	{
+		y = 0.47 * N;
+		z = -1.32 * N;
+	}
+
+	void function_b(double x_start, double x_end, double x_diff)
+	{
+		int i = 0;
+		for (double x = x_start; x <= x_end && i < 11; x += x_diff)
+		{
+			arr_x[i] = x;
+			arr_b[i] = (2 * z + cos(pow(fabs(y - 3 * x), 1.0 / 3))) / (2.1 + pow(sin(pow(fabs(pow(z, 3) - y), 0.2)), 2)) + pow(log(fabs((z - x) / (z + x))), 2);
+			i++;
+
+		}
+	}
+
+	void function_a()
+	{
+		for (int i = 0; i < 11; i++)
+		{
+			double x = arr_x[i];
+			double b = arr_b[i];
+			arr_a[i] = pow(fabs(x), 0.43) + (exp(y - x) + sqrt(pow(fabs(y * y + b), 0.22))) / (1 + x * x * fabs(y - pow(tan(z), 2)));
+		}
+	}
+
+
+	void functionsRes(double x_start, double x_end, double x_diff)
+	{
+		function_b(x_start, x_end, x_diff);
+		function_a();
+		for (int i = 0; i < 11; i++)
+		{
+			cout << "x = " << arr_x[i] << " \t\tb = " << arr_b[i] << " \t\ta = " << arr_a[i] << endl;
+		}
+	}
+};
+
+int main()
+{
+	int N = 2;
+	double x_start = -1, x_end = 1, x_diff = 0.2;
+
+	functions F(N);
+	F.functionsRes(x_start, x_end, x_diff);
+
+	return 0;
+}
